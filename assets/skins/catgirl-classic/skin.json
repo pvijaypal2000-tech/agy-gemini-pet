@@ -1,0 +1,46 @@
+{
+  "id": "catgirl-classic",
+  "name": "蓝紫星喵娘",
+  "subtitle": "中文二创经典 · 粉金异色瞳猫耳",
+  "tag": "经典二创",
+  "builtin": true,
+  "order": 1,
+  "pixelated": false,
+  "recommendedSoundPack": "meow-bell",
+  "accentColors": [
+    "#60a5fa",
+    "#a78bfa"
+  ],
+  "greeting": [
+    "蓝紫星喵娘已就位 ✦",
+    "哼，今天也要把缓存命中率拉满喵！"
+  ],
+  "pokeLines": [
+    [
+      "别戳啦，Token 在烧着呢！",
+      "哼，再戳我可要收猫粮费了喵～"
+    ],
+    [
+      "没偷偷跑去喂蓝色小鲸鱼吧？",
+      "有 Gemini 蓝紫猫娘盯着还不够嘛！✦"
+    ],
+    [
+      "反重力能量满格待机中～",
+      "双击我或者点脚下胶囊可以看完整账单哦"
+    ],
+    [
+      "记得常看上下文水位！",
+      "太胖的话开个新会话或 /compact 最省额度啦"
+    ],
+    [
+      "tokless + agy-fast 双开加持中",
+      "今天的缓存命中率一定要漂漂亮亮的✨"
+    ]
+  ],
+  "moodLines": {
+    "cacheCliff": "缓存断层啦！检查是不是改了顶部规则喵 💦",
+    "highCtx": "上下文 {ctxPct}% 啦！再塞下去要失忆了喵 💦",
+    "cacheHigh": "哼，缓存命中这么稳，还不快夸夸我 ✨",
+    "fast": "反重力加速全开！嗖一下写完啦 ✨"
+  }
+}

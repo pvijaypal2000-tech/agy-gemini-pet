@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="320" height="320">
+  <defs>
+    <linearGradient id="gFour" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4285f4"/>
+      <stop offset="35%" stop-color="#34a853"/>
+      <stop offset="68%" stop-color="#fbbc05"/>
+      <stop offset="100%" stop-color="#ea4335"/>
+    </linearGradient>
+    <radialGradient id="whiteCore" cx="42%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="78%" stop-color="#eff6ff"/>
+      <stop offset="100%" stop-color="#dbeafe"/>
+    </radialGradient>
+    <linearGradient id="twinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="50%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#f472b6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Orbit halo connecting Gemini twins -->
+  <ellipse cx="164" cy="170" rx="122" ry="44" transform="rotate(-22 164 170)" fill="none" stroke="url(#gFour)" stroke-width="5.5" opacity="0.72"/>
+
+  <!-- Main 4-Color Gemini Star Spirit -->
+  <g transform="">
+    <path d="M148 48
+             C160 116, 178 134, 248 182
+             C178 214, 160 232, 148 286
+             C136 232, 118 214, 48 182
+             C118 134, 136 116, 148 48 Z"
+          fill="url(#gFour)" stroke="#1e293b" stroke-width="5.5" stroke-linejoin="round"/>
+    <!-- Inner clean white-blue glossy face shield -->
+    <circle cx="148" cy="180" r="52" fill="url(#whiteCore)" stroke="#3b82f6" stroke-width="3"/>
+    <ellipse cx="113" cy="188" rx="9" ry="5.5" fill="#fb7185" opacity="0.82"/>
+    <ellipse cx="183" cy="188" rx="9" ry="5.5" fill="#fb7185" opacity="0.82"/>
+    
+      <path d="M117 177 Q127 164 137 177" fill="none" stroke="#172554" stroke-width="4.2" stroke-linecap="round"/>
+      <path d="M159 177 Q169 164 179 177" fill="none" stroke="#172554" stroke-width="4.2" stroke-linecap="round"/>
+      <path d="M139 187 Q148 202 157 187 Z" fill="#fb7185" stroke="#1e3a8a" stroke-width="2.8"/>
+    
+  </g>
+
+  <!-- Twin Companion Mini-Star (Gemini Twin!) -->
+  <g transform="translate(0 -8)">
+    <path d="M249 62
+             C255 96, 263 104, 298 118
+             C263 132, 255 140, 249 174
+             C243 140, 235 132, 200 118
+             C235 104, 243 96, 249 62 Z"
+          fill="url(#twinGrad)" stroke="#1e293b" stroke-width="4.2" stroke-linejoin="round"/>
+    <circle cx="249" cy="118" r="22" fill="#ffffff" opacity="0.92"/>
+    
+      <path d="M238 117 Q242 112 246 117" fill="none" stroke="#172554" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M252 117 Q256 112 260 117" fill="none" stroke="#172554" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M245 123 Q249 128 253 123" fill="none" stroke="#1e3a8a" stroke-width="2.2" stroke-linecap="round"/>
+    
+  </g>
+
+  
+      <path d="M68 88 L73 102 L87 107 L73 112 L68 126 L63 112 L49 107 L63 102 Z" fill="#fbbc05" stroke="#1e3a8a" stroke-width="2"/>
+      <path d="M248 206 L252 216 L262 220 L252 224 L248 234 L244 224 L234 220 L244 216 Z" fill="#34a853" stroke="#1e3a8a" stroke-width="2"/>
+      <path d="M78 232 L81 240 L89 243 L81 246 L78 254 L75 246 L67 243 L75 240 Z" fill="#ea4335"/>
+    
+</svg>

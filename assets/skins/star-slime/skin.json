@@ -1,0 +1,42 @@
+{
+  "id": "star-slime",
+  "name": "反重力星团子",
+  "subtitle": "失重软萌四角星 · 矢量高清治愈系",
+  "tag": "极简萌物",
+  "builtin": true,
+  "order": 4,
+  "pixelated": false,
+  "recommendedSoundPack": "glass-droplet",
+  "accentColors": [
+    "#93c5fd",
+    "#c4b5fd"
+  ],
+  "greeting": [
+    "咕啾～四角星团子飘来啦 ✦",
+    "软绵绵陪你写代码写论文，绝不打扰～"
+  ],
+  "pokeLines": [
+    [
+      "咕啾～好痒呀 (>_<)",
+      "被捏扁啦，弹回来继续发光✨"
+    ],
+    [
+      "失重漂浮中… zZZ",
+      "只要有新消息我就立刻亮起来哦"
+    ],
+    [
+      "今天也要注意休息眼睛呀",
+      "上下文太满的时候我会冒汗提醒你滴"
+    ],
+    [
+      "蓝紫星光充能 100% ✦",
+      "点我脚下的小胶囊可以看今天花了多少 Token"
+    ]
+  ],
+  "moodLines": {
+    "cacheCliff": "咕呜…缓存突然掉了一块，好像有点浪费 💦",
+    "highCtx": "团子快装不下啦（{ctxPct}%）！开个新对话减减肥吧 💦",
+    "cacheHigh": "咕啾～缓存软软地接住了，超省 Token ✨",
+    "fast": "咻——星光团子光速送达！✨"
+  }
+}

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' file:; img-src 'self' file: data:; media-src 'self' file:; connect-src 'self' file:; style-src 'self' 'unsafe-inline'; script-src 'self';" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="root" class="root dock-right">
+    <!-- Expandable Dashboard Card -->
+    <aside id="dashboard-panel" class="dashboard-panel hidden" data-interactive="true">
+      <div class="panel-header">
+        <div class="panel-title-wrap">
+          <span class="sparkle-icon">✦</span>
+          <span id="panel-title" class="panel-title">Gemini 监测仪</span>
+          <span id="model-badge" class="model-badge">AGY</span>
+        </div>
+        <div class="panel-actions">
+          <span id="follow-chip" class="follow-chip" title="当前窗口跟随模式">跟随 AGY</span>
+          <button id="btn-open-nebula" class="icon-btn" title="打开本地记忆星图">🌌</button>
+          <button id="btn-open-settings" class="icon-btn" title="全局设置">⚙</button>
+          <button id="btn-refresh" class="icon-btn" title="手动刷新">↻</button>
+          <button id="btn-close-panel" class="icon-btn" title="收起面板">✕</button>
+        </div>
+      </div>
+
+      <nav class="panel-tabs">
+        <button class="tab-btn active" data-tab="live">监测</button>
+        <button class="tab-btn" data-tab="ledger">账单</button>
+        <button class="tab-btn" data-tab="companion">陪伴</button>
+        <button class="tab-btn" data-tab="tools">工具</button>
+        <button class="tab-btn" data-tab="skins">形象</button>
+        <button class="tab-btn" data-tab="sounds">音效</button>
+      </nav>
+
+      <!-- Tab 1: Live Monitor -->
+      <section id="tab-live" class="tab-pane active">
+        <div class="session-picker-row">
+          <select id="session-select" class="session-select" title="切换监控会话">
+            <option value="">自动追踪最新主会话</option>
+          </select>
+          <span id="activity-pill" class="activity-pill">待机中</span>
+        </div>
+
+        <div class="card context-card">
+          <div class="card-top">
+            <span class="card-label">当前上下文水位</span>
+            <span id="ctx-value" class="card-value rolling-num">0 / 512K (0%)</span>
+          </div>
+          <div class="progress-track">
+            <div id="ctx-bar" class="progress-fill" style="width: 0%"></div>
+            <div id="ctx-warn-mark" class="warn-mark" style="left: 70%" title="预警水位线"></div>
+          </div>
+          <div class="card-sub-row">
+            <span id="ctx-hint" class="muted">状态清爽，记忆稳稳的 ✨</span>
+            <span id="compaction-tag" class="tag hidden">已压缩 0 次</span>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-box">
+            <div class="metric-label">缓存命中率</div>
+            <div id="m-cache" class="metric-val rolling-num">--%</div>
+            <div id="m-cache-sub" class="metric-sub">本步 --%</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">生成速度</div>
+            <div id="m-speed" class="metric-val rolling-num">--</div>
+            <div id="m-speed-sub" class="metric-sub">均速 --</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">本会话新增</div>
+            <div id="m-in-out" class="metric-val rolling-num">0</div>
+            <div id="m-in-out-sub" class="metric-sub">轮次 0 · 步 0</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">缓存复用量</div>
+            <div id="m-cache-tok" class="metric-val rolling-num">0</div>
+            <div id="m-ref-usd" class="metric-sub">API参考 $0.00</div>
+          </div>
+        </div>
+
+        <div class="card budget-card">
+          <div class="card-top">
+            <span class="card-label" id="quota-label">今日净消耗参考</span>
+            <span id="quota-val" class="card-value rolling-num">0 / 2.00M</span>
+          </div>
+          <div class="progress-track thin">
+            <div id="quota-bar" class="progress-fill quota-fill" style="width: 0%"></div>
+          </div>
+          <div class="card-sub-row">
+            <span id="quota-sub" class="muted">纯本地日志直读 · 0 Token 消耗</span>
+            <span id="today-usd" class="muted">参考 $0.00</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab 2: Ledger -->
+      <section id="tab-ledger" class="tab-pane">
+        <div class="ledger-summary">
+          <div class="sum-chip">
+            <span class="sum-label">今日净耗</span>
+            <strong id="l-today-tok">0</strong>
+            <small id="l-today-meta">0 轮</small>
+          </div>
+          <div class="sum-chip">
+            <span class="sum-label">近 7 天</span>
+            <strong id="l-7d-tok">0</strong>
+            <small id="l-7d-meta">参考 $0.00</small>
+          </div>
+          <div class="sum-chip">
+            <span class="sum-label">累计全部</span>
+            <strong id="l-all-tok">0</strong>
+            <small id="l-all-meta">0 会话</small>
+          </div>
+        </div>
+
+        <div class="card chart-card">
+          <div class="card-top">
+            <span class="card-label">近 7 日净消耗趋势（Input + Output）</span>
+          </div>
+          <div id="daily-chart" class="daily-chart"></div>
+        </div>
+
+        <div class="card models-card">
+          <div class="card-top">
+            <span class="card-label">模型消耗分布</span>
+          </div>
+          <div id="model-list" class="model-list"></div>
+        </div>
+
+        <div class="card sessions-card">
+          <div class="card-top">
+            <span class="card-label">近期会话（点击切换查看）</span>
+          </div>
+          <div id="recent-list" class="recent-list"></div>
+        </div>
+      </section>
+
+      <!-- Tab 3: Companion (Affinity + Feed + Nickname + Mini-Game) -->
+      <section id="tab-companion" class="tab-pane">
+        <div class="card bond-card">
+          <div class="bond-top">
+            <div>
+              <div class="bond-title-row">
+                <span id="bond-level-badge" class="bond-badge">Lv.1</span>
+                <strong id="bond-title">初次邂逅</strong>
+              </div>
+              <div id="bond-sub" class="muted" style="margin-top:2px;">好感度 10 / 25 ♥ · 下阶：桌角小伙伴</div>
+            </div>
+            <div class="treats-pill" title="完成对话、高缓存命中或番茄专注自动掉落">
+              🐟 <span id="treats-count">6</span>
+            </div>
+          </div>
+
+          <div class="progress-track thin" style="margin: 6px 0;">
+            <div id="bond-bar" class="progress-fill bond-fill" style="width: 40%"></div>
+          </div>
+
+          <div class="bond-actions">
+            <button id="btn-pat-pet" class="primary-mini-btn">👋 摸摸头 (+1♥)</button>
+            <button id="btn-feed-pet" class="primary-mini-btn warm">🐟 喂小鱼干 (+5♥)</button>
+          </div>
+
+          <div class="nickname-row">
+            <span class="muted">专属昵称</span>
+            <input id="pet-nickname-input" type="text" maxlength="16" class="text-input compact" placeholder="给当前形象起个昵称..." />
+            <button id="btn-save-nickname" class="tiny-btn">保存</button>
+          </div>
+        </div>
+
+        <div class="card snake-card">
+          <div class="card-top" style="margin-bottom:5px;">
+            <span class="card-label">🎮 等 AI 思考摸鱼 · 星喵贪吃蛇</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span class="snake-score-chip">得分 <b id="snake-score">0</b></span>
+              <span class="snake-score-chip gold">🏆 <b id="snake-best">0</b></span>
+            </div>
+          </div>
+          <div class="snake-canvas-wrap">
+            <canvas id="snake-canvas"></canvas>
+          </div>
+          <div class="snake-controls-row">
+            <div style="display:flex;gap:5px;">
+              <button id="btn-snake-start" class="primary-mini-btn">开始 / 暂停</button>
+              <button id="btn-snake-restart" class="tiny-btn">重开</button>
+            </div>
+            <div class="dpad">
+              <button class="dpad-btn" data-dir="0,-1">↑</button>
+              <button class="dpad-btn" data-dir="-1,0">←</button>
+              <button class="dpad-btn" data-dir="0,1">↓</button>
+              <button class="dpad-btn" data-dir="1,0">→</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab 4: Study & Productivity Toolbox -->
+      <section id="tab-tools" class="tab-pane">
+        <div class="card pomo-card">
+          <div class="card-top">
+            <span class="card-label">🍅 番茄专注钟（墙钟持久化）</span>
+            <span id="pomo-phase-chip" class="tag">专注阶段</span>
+          </div>
+          <div class="pomo-clock-row">
+            <div id="pomo-clock" class="pomo-clock">25:00</div>
+            <div class="pomo-btn-col">
+              <button id="btn-pomo-toggle" class="primary-mini-btn">开始专注</button>
+              <div style="display:flex;gap:4px;">
+                <button id="btn-pomo-reset" class="tiny-btn">重置</button>
+                <button id="btn-pomo-switch" class="tiny-btn">切休息</button>
+              </div>
+            </div>
+          </div>
+          <div class="pomo-config-row">
+            <label>专注 <input id="pomo-work-min" type="number" min="1" max="120" value="25" class="mini-num sm" /> 分</label>
+            <label>休息 <input id="pomo-break-min" type="number" min="1" max="60" value="5" class="mini-num sm" /> 分</label>
+            <span id="pomo-done-count" class="muted">累计 0 轮</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <span class="card-label">💧 久坐 & 喝水提醒</span>
+            <label class="switch"><input id="hydro-enabled" type="checkbox" /><span></span></label>
+          </div>
+          <div class="setting-row" style="background:transparent;padding:2px 0;">
+            <span class="muted" id="hydro-status">未开启（开启后工作态自动延后不打断）</span>
+            <select id="hydro-interval" class="mini-select">
+              <option value="30">每 30 分钟</option>
+              <option value="45" selected>每 45 分钟</option>
+              <option value="60">每 60 分钟</option>
+              <option value="90">每 90 分钟</option>
+            </select>
+          </div>
+          <div style="margin-top:6px;display:flex;justify-content:flex-end;">
+            <button id="btn-hydro-ack" class="tiny-btn">💧 刚喝完水（重置计时 +1♥）</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <span class="card-label">📝 悬浮小便签（待办/灵感备忘）</span>
+            <label class="switch"><input id="note-visible" type="checkbox" /><span></span></label>
+          </div>
+          <textarea id="note-textarea" class="note-textarea" rows="3" placeholder="写下当前要盯的任务要点、待办或灵感，打开开关就会轻飘在猫娘旁边..."></textarea>
+        </div>
+      </section>
+
+      <!-- Tab 5: Skin Library -->
+      <section id="tab-skins" class="tab-pane">
+        <div class="toolbar-row">
+          <div style="display:flex;gap:4px;">
+            <button id="btn-import-skin" class="primary-mini-btn">+ 单图皮肤</button>
+            <button id="btn-import-petdex" class="tiny-btn" title="导入含 pet.json 或精灵图的社区桌宠目录">+ Petdex/精灵图</button>
+          </div>
+          <div style="display:flex;gap:4px;">
+            <button id="btn-sync-skin-sound" class="tiny-btn" title="切换为当前形象的推荐音效包">配音效</button>
+            <button id="btn-open-skins" class="tiny-btn">目录</button>
+          </div>
+        </div>
+
+        <div id="skin-grid" class="skin-grid"></div>
+
+        <div class="card pose-card">
+          <div class="card-top">
+            <span class="card-label">表情预览 & 精灵图帧率</span>
+            <span id="skin-active-name" class="muted">蓝紫星喵娘</span>
+          </div>
+          <div class="pose-strip">
+            <button class="pose-btn" data-pose="idle">待机</button>
+            <button class="pose-btn" data-pose="working">输出</button>
+            <button class="pose-btn" data-pose="happy">开心</button>
+            <button class="pose-btn" data-pose="sweat">告警</button>
+            <button class="pose-btn" data-pose="poked">被戳</button>
+          </div>
+          <div class="param-row" style="margin-top:7px;">
+            <span>精灵图动画帧率 <em id="set-fps-val">8 FPS</em></span>
+            <input id="set-fps" type="range" min="1" max="24" step="1" value="8" />
+          </div>
+          <div id="custom-state-tools" class="custom-state-tools hidden">
+            <span class="muted">替换该自定义皮肤的单态图片：</span>
+            <div class="pose-strip">
+              <button class="tiny-btn replace-state-btn" data-replace="idle">换待机</button>
+              <button class="tiny-btn replace-state-btn" data-replace="working">换输出</button>
+              <button class="tiny-btn replace-state-btn" data-replace="happy">换开心</button>
+              <button class="tiny-btn replace-state-btn" data-replace="sweat">换告警</button>
+              <button class="tiny-btn replace-state-btn" data-replace="poked">换被戳</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab 6: Sound Studio -->
+      <section id="tab-sounds" class="tab-pane">
+        <div class="toolbar-row">
+          <div style="display:flex;align-items:center;gap:7px;">
+            <span style="font-size:11.5px;font-weight:600;">音效总开关</span>
+            <label class="switch"><input id="snd-enabled" type="checkbox" checked /><span></span></label>
+          </div>
+          <div style="display:flex;gap:5px;">
+            <button id="btn-open-sounds" class="tiny-btn">音频目录</button>
+            <button id="btn-reset-sound" class="tiny-btn">重置调参</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <span class="card-label">预设音色包（点击即切换并试听）</span>
+          </div>
+          <div id="sound-pack-grid" class="sound-pack-grid"></div>
+        </div>
+
+        <div class="card synth-params-card">
+          <div class="card-top">
+            <span class="card-label">实时合成调参台</span>
+            <button id="btn-preview-chord" class="tiny-btn">▶ 试听</button>
+          </div>
+          <div class="param-row">
+            <span>总音量 <em id="snd-vol-val">72%</em></span>
+            <input id="snd-vol" type="range" min="0.1" max="1.0" step="0.05" value="0.72" />
+          </div>
+          <div class="param-row">
+            <span>音高变调 <em id="snd-pitch-val">0 st</em></span>
+            <input id="snd-pitch" type="range" min="-12" max="12" step="1" value="0" />
+          </div>
+          <div class="param-row">
+            <span>节奏倍速 <em id="snd-speed-val">1.0x</em></span>
+            <input id="snd-speed" type="range" min="0.6" max="1.6" step="0.05" value="1.0" />
+          </div>
+          <div class="param-row">
+            <span>余韵延音 <em id="snd-decay-val">1.0x</em></span>
+            <input id="snd-decay" type="range" min="0.5" max="2.0" step="0.1" value="1.0" />
+          </div>
+          <div class="param-row">
+            <span>音色明亮度 <em id="snd-bright-val">78%</em></span>
+            <input id="snd-bright" type="range" min="0.15" max="1.0" step="0.05" value="0.78" />
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <span class="card-label">分事件音效混音台（支持导入 MP3/WAV）</span>
+          </div>
+          <div id="sound-event-list" class="sound-event-list"></div>
+        </div>
+      </section>
+
+      <!-- Header ⚙️ Settings View -->
+      <section id="tab-settings" class="tab-pane">
+        <div class="settings-list">
+          <div class="setting-row">
+            <span>窗口模式</span>
+            <select id="set-follow-mode" class="mini-select">
+              <option value="antigravity">跟随 Antigravity</option>
+              <option value="global">全局桌面置顶</option>
+            </select>
+          </div>
+
+          <div class="setting-row">
+            <span>形象大小 <em id="set-scale-val">100%</em></span>
+            <input id="set-scale" type="range" min="0.7" max="1.35" step="0.05" value="1.0" />
+          </div>
+
+          <div class="setting-row">
+            <span>开机静默潜伏（开 AGY 自动现身）</span>
+            <label class="switch"><input id="set-autostart" type="checkbox" /><span></span></label>
+          </div>
+
+          <div class="setting-row">
+            <span>未开 Antigravity 时自动潜伏隐身</span>
+            <label class="switch"><input id="set-silent-lurk" type="checkbox" /><span></span></label>
+          </div>
+
+          <div class="setting-row">
+            <span>工作态免打扰（跑工具时不插嘴）</span>
+            <label class="switch"><input id="set-quiet" type="checkbox" checked /><span></span></label>
+          </div>
+
+          <div class="setting-row">
+            <span>闲置打盹时间（秒）</span>
+            <input id="set-sleep-sec" type="number" min="60" max="3600" step="30" value="300" class="mini-num" />
+          </div>
+
+          <div class="setting-row">
+            <span>贴左吸附水平翻转</span>
+            <label class="switch"><input id="set-flip" type="checkbox" checked /><span></span></label>
+          </div>
+
+          <div class="setting-row">
+            <span>开启顶部吸附</span>
+            <label class="switch"><input id="set-snap-top" type="checkbox" /><span></span></label>
+          </div>
+
+          <div class="setting-row">
+            <span>显示底部迷你数据胶囊</span>
+            <label class="switch"><input id="set-pill" type="checkbox" checked /><span></span></label>
+          </div>
+
+          <div class="setting-row">
+            <span>每轮结束弹出消耗泡泡</span>
+            <label class="switch"><input id="set-bubble" type="checkbox" checked /><span></span></label>
+          </div>
+
+          <div class="setting-row">
+            <span>泡泡自动关闭（秒，0=常驻）</span>
+            <input id="set-bubble-sec" type="number" min="0" max="30" value="7" class="mini-num" />
+          </div>
+
+          <div class="setting-col">
+            <div class="setting-sub-head">
+              <span>自定义消耗泡泡模板</span>
+              <button id="btn-test-bubble" class="tiny-btn">测试泡泡</button>
+            </div>
+            <input id="set-bubble-tpl" type="text" class="text-input" />
+            <div class="tpl-chips">
+              <button class="chip" data-insert="{turnTokens}">{turnTokens}</button>
+              <button class="chip" data-insert="{cachePct}">{cachePct}</button>
+              <button class="chip" data-insert="{speed}">{speed}</button>
+              <button class="chip" data-insert="{ctxPct}">{ctxPct}</button>
+              <button class="chip" data-insert="{cost}">{cost}</button>
+              <button class="chip" data-insert="{model}">{model}</button>
+            </div>
+          </div>
+
+          <div class="setting-row">
+            <span>上下文预警线 <em id="set-warn-val">70%</em></span>
+            <input id="set-warn" type="range" min="50" max="90" step="5" value="70" />
+          </div>
+
+          <div class="setting-row">
+            <span>每日参考预算（M Token）</span>
+            <input id="set-budget" type="number" min="0.2" max="50" step="0.5" value="2" class="mini-num" />
+          </div>
+
+          <div class="setting-actions">
+            <button id="btn-open-logs" class="action-btn">日志目录</button>
+            <button id="btn-reset-pos" class="action-btn">归位右下角</button>
+            <button id="btn-reset-all" class="action-btn danger">恢复默认</button>
+          </div>
+        </div>
+      </section>
+    </aside>
+
+    <!-- Mascot Compact Stage -->
+    <main id="mascot-stage" class="mascot-stage">
+      <!-- Floating Sticky Note (visible when toggled on & speech bubble hidden) -->
+      <div id="floating-note" class="floating-note hidden" data-interactive="true" title="点击编辑便签">
+        <div class="floating-note-head">📌 便签</div>
+        <div id="floating-note-body" class="floating-note-body"></div>
+      </div>
+
+      <!-- Speech Bubble -->
+      <div id="speech-bubble" class="speech-bubble hidden" data-interactive="true">
+        <div id="bubble-text" class="bubble-text"></div>
+        <div id="bubble-mood" class="bubble-mood"></div>
+        <button id="bubble-close" class="bubble-close" title="关闭">×</button>
+      </div>
+
+      <!-- Mascot Interactive Area -->
+      <div id="mascot-hit" class="mascot-hit" data-interactive="true" title="左键摸头 · 双击展开面板 · 拖拽吸边 · 右键菜单">
+        <div id="mascot-aura" class="mascot-aura"></div>
+        <div id="float-particles" class="float-particles"></div>
+        <div id="sleep-zzz" class="sleep-zzz hidden">
+          <span>z</span><span>Z</span><span>z</span>
+        </div>
+        <div id="mascot-flipper" class="mascot-flipper">
+          <div id="mascot-jelly" class="mascot-jelly">
+            <img id="mascot-img" class="mascot-img" src="../../assets/skins/catgirl-classic/idle.png" alt="Gemini Mascot" draggable="false" />
+            <canvas id="mascot-canvas" class="mascot-canvas hidden" width="320" height="320"></canvas>
+          </div>
+        </div>
+        <div id="working-sparkles" class="working-sparkles hidden">
+          <span>✦</span><span>✧</span><span>✦</span>
+        </div>
+      </div>
+
+      <!-- Compact Live Pill (+ optional live Pomodoro countdown) -->
+      <div id="status-pill" class="status-pill" data-interactive="true" title="点击展开/收起 Gemini 控制台">
+        <span id="pill-dot" class="pill-dot"></span>
+        <span id="pill-ctx" class="pill-metric rolling-num">0%</span>
+        <span class="pill-sep">·</span>
+        <span id="pill-second" class="pill-metric rolling-num">待机</span>
+        <span id="pill-pomo" class="pill-pomo hidden">🍅25:00</span>
+        <span id="pill-toggle-arrow" class="pill-arrow">▴</span>
+      </div>
+    </main>
+  </div>
+
+  <script src="sound-engine.js"></script>
+  <script src="sprite-player.js"></script>
+  <script src="snake-game.js"></script>
+  <script src="toolbox.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

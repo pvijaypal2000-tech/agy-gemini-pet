@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="320" height="320">
+  <defs>
+    <radialGradient id="slimeBody" cx="38%" cy="30%" r="72%">
+      <stop offset="0%" stop-color="#e0f2fe"/>
+      <stop offset="32%" stop-color="#7dd3fc"/>
+      <stop offset="68%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#f472b6"/>
+    </radialGradient>
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fde047"/>
+      <stop offset="50%" stop-color="#c084fc"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <linearGradient id="holoStar" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e0f2fe"/>
+      <stop offset="50%" stop-color="#67e8f9"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Back half of antigravity Saturn ring -->
+  <ellipse cx="160" cy="186" rx="126" ry="34" transform="rotate(-14 160 186)" fill="none" stroke="url(#ringGrad)" stroke-width="7.5" stroke-dasharray="195 240" stroke-dashoffset="190" opacity="0.82"/>
+
+  <g transform="translate(160 198) scale(1.12 0.86) translate(-160 -198)">
+    <!-- Plump kawaii 4-pointed star mochi silhouette -->
+    <path d="M160 44
+             C182 44, 198 110, 212 126
+             C228 142, 276 154, 276 180
+             C276 206, 228 218, 212 232
+             C196 248, 184 282, 160 282
+             C136 282, 124 248, 108 232
+             C92 218, 44 206, 44 180
+             C44 154, 92 142, 108 126
+             C122 110, 138 44, 160 44 Z"
+          fill="url(#slimeBody)" stroke="#2e2a66" stroke-width="5.5" stroke-linejoin="round"/>
+
+    <!-- Glossy mochi specular highlights -->
+    <ellipse cx="138" cy="112" rx="18" ry="10" transform="rotate(-24 138 112)" fill="#ffffff" opacity="0.62"/>
+    <circle cx="116" cy="128" r="5" fill="#ffffff" opacity="0.58"/>
+
+    <!-- Cute rosy cheeks -->
+    <ellipse cx="112" cy="191" rx="13" ry="7.5" fill="#fb7185" opacity="0.9"/>
+    <ellipse cx="208" cy="191" rx="13" ry="7.5" fill="#fb7185" opacity="0.9"/>
+
+    <!-- Expressive chibi face -->
+    
+      <path d="M122 170 L138 178 L122 186" fill="none" stroke="#1e1b4b" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M198 170 L182 178 L198 186" fill="none" stroke="#1e1b4b" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <path d="M150 194 Q155 189 160 194 Q165 189 170 194" fill="none" stroke="#312e81" stroke-width="3.6" stroke-linecap="round"/>
+  </g>
+
+  <!-- Front half of antigravity ring -->
+  <ellipse cx="160" cy="186" rx="126" ry="34" transform="rotate(-14 160 186)" fill="none" stroke="url(#ringGrad)" stroke-width="8" stroke-linecap="round" stroke-dasharray="205 260" stroke-dashoffset="-15" filter="url(#softGlow)"/>
+
+  <!-- State extras -->
+  
+      <path d="M232 104 L244 92 M244 104 L232 92" stroke="#f472b6" stroke-width="4" stroke-linecap="round"/>
+      <path d="M74 114 L78 123 L87 127 L78 131 L74 140 L70 131 L61 127 L70 123 Z" fill="#f9a8d4"/>
+    
+</svg>

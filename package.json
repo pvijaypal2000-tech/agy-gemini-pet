@@ -1,0 +1,34 @@
+{
+  "name": "agy-gemini-pet",
+  "version": "3.0.0",
+  "description": "Gemini 蓝紫猫娘 · 随 Google Antigravity 联动的透明悬浮监测桌宠（5 套多风格皮肤、Petdex 精灵图引擎、6 音色音效台、番茄钟、好感度养成、星喵贪吃蛇与记忆星图快捷入口）",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "install:plugin": "node install_plugin.mjs",
+    "test:parser": "node scripts/test-parser.js",
+    "build-svg-skins": "node scripts/build-svg-skins.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pvijaypal2000-tech/agy-gemini-pet.git"
+  },
+  "homepage": "https://github.com/pvijaypal2000-tech/agy-gemini-pet#readme",
+  "bugs": {
+    "url": "https://github.com/pvijaypal2000-tech/agy-gemini-pet/issues"
+  },
+  "author": "pvijaypal2000-tech",
+  "keywords": [
+    "antigravity",
+    "gemini",
+    "desktop-pet",
+    "electron",
+    "token-monitor",
+    "catgirl",
+    "sidecar-plugin"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^45.4.1"
+  }
+}

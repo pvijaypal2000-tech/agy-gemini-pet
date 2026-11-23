@@ -1,0 +1,11 @@
+{
+  "name": "agy-gemini-pet",
+  "displayName": "Gemini 蓝紫猫娘 · 悬浮监测桌宠",
+  "version": "3.0.0",
+  "description": "随 Antigravity 桌面端联动的透明悬浮监测桌宠（5 套多风格形象、Petdex 精灵图、6 音色参数化音效台、番茄钟、好感度养成、星喵贪吃蛇与记忆星图快捷入口）。",
+  "logo": "assets/logo.svg",
+  "suggestedPrompts": [
+    "帮我看看当前记忆星图和今天的 Token 消耗情况",
+    "给我的 Gemini 猫娘挂件新增一套自定义主题皮肤"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "id": "catgirl-argon",
+  "name": "辉光霓虹喵娘",
+  "subtitle": "Gemini Argon 霓虹紫粉限定版",
+  "tag": "霓虹限定",
+  "builtin": true,
+  "order": 2,
+  "pixelated": false,
+  "recommendedSoundPack": "cyber-sci",
+  "accentColors": [
+    "#e879f9",
+    "#38bdf8"
+  ],
+  "greeting": [
+    "Argon 辉光管已通电 ✦",
+    "霓虹猫娘全频段接管监控，请下达指令！"
+  ],
+  "pokeLines": [
+    [
+      "滋滋——辉光管充能中！",
+      "别乱戳天线，会漏出紫色电弧的喵⚡"
+    ],
+    [
+      "夜深写代码就得配赛博霓虹",
+      "切到 Lo-Fi 电钢音效包超治愈哦"
+    ],
+    [
+      "监测到高能输出波动 ✦",
+      "今天预算进度条都帮你盯紧啦"
+    ],
+    [
+      "再戳我就要切换高功率模式了！",
+      "哼，其实还挺喜欢你来找我玩的"
+    ]
+  ],
+  "moodLines": {
+    "cacheCliff": "警告：检测到前缀缓存断层波动 ⚡",
+    "highCtx": "上下文负载 {ctxPct}%！建议开启新会话减压 ⚡",
+    "cacheHigh": "辉光缓存完美共振，省流率拉满 ✦",
+    "fast": "超频输出达成！霓虹星环全速运转 ✨"
+  }
+}

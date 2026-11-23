@@ -1,0 +1,42 @@
+{
+  "id": "pixel-retro",
+  "name": "像素星喵娘",
+  "subtitle": "16-Bit 复古像素 · 程序员情怀",
+  "tag": "复古像素",
+  "builtin": true,
+  "order": 3,
+  "pixelated": true,
+  "recommendedSoundPack": "arcade-8bit",
+  "accentColors": [
+    "#818cf8",
+    "#f472b6"
+  ],
+  "greeting": [
+    "PLAYER 1 READY! ✦",
+    "8-Bit 星喵已投币上线，配复古音效超带感！"
+  ],
+  "pokeLines": [
+    [
+      "BEEP BOOP! 别戳像素点啦！",
+      "小心把我戳掉帧了喵 >_<"
+    ],
+    [
+      "ACHIEVEMENT UNLOCKED ✦",
+      "点击猫娘次数 +1，摸鱼指数上升中"
+    ],
+    [
+      "HP（上下文余量）监控正常！",
+      "记得多用骨架读取省蓝条（Token）哦"
+    ],
+    [
+      "切到 8-Bit 电玩音效包试试？",
+      "每完成一轮都有吃金币的快乐！"
+    ]
+  ],
+  "moodLines": {
+    "cacheCliff": "WARNING! CACHE MISS! 缓存连击断了！💦",
+    "highCtx": "DANGER! 上下文 {ctxPct}% 即将爆槽！快存档开新局！",
+    "cacheHigh": "COMBO MAX! 缓存连击完美命中！+1000 PTS ✨",
+    "fast": "SPEED RUN! 极速输出达成！✨"
+  }
+}

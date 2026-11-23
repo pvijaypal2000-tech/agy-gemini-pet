@@ -1,0 +1,42 @@
+{
+  "id": "google-fourcolor",
+  "name": "四色双子星灵",
+  "subtitle": "谷歌红黄蓝绿双星 · 极简科技风",
+  "tag": "谷歌四色",
+  "builtin": true,
+  "order": 5,
+  "pixelated": false,
+  "recommendedSoundPack": "starlight",
+  "accentColors": [
+    "#4285f4",
+    "#fbbc05"
+  ],
+  "greeting": [
+    "双子星双人组上线 ✦",
+    "大星盯额度、小星盯网速，分工明确！"
+  ],
+  "pokeLines": [
+    [
+      "双子星同步闪烁中 ✦✧",
+      "红黄蓝绿四色能量平衡良好～"
+    ],
+    [
+      "主星与伴星正在协奏",
+      "双击我们可以查看 7 日用量柱状图哦"
+    ],
+    [
+      "Prefix Cache 就像轨道惯性",
+      "别在中途大改顶部规则就能一直滑行省流！"
+    ],
+    [
+      "想换音效风格？",
+      "点开面板里的「音效」标签随便拧旋钮哦"
+    ]
+  ],
+  "moodLines": {
+    "cacheCliff": "轨道抖动！检测到缓存命中断层 💦",
+    "highCtx": "轨道载重 {ctxPct}%，建议切换新会话保持轻盈 ✦",
+    "cacheHigh": "四色星轨稳定滑行，缓存复用率极佳 ✨",
+    "fast": "双子星超光速传输完成！✨"
+  }
+}
